@@ -554,6 +554,7 @@ namespace PSPDFKit
 		[Export ("pdfViewController:shouldDisplayAnnotation:onPageView:"), DelegateName ("PSPDFViewControllerShouldDisplayAnnotation"), NoDefaultValue]
 		bool ShouldDisplayAnnotation (PSPDFViewController pdfController, PSPDFAnnotation annotation, PSPDFPageView pageView);
 
+		// TODO: Ponder the Switch PSPDFAnnotationViewProtocol annotationView to IPSPDFAnnotationViewProtocol annotationView
 		[Export ("pdfViewController:didTapOnAnnotation:annotationPoint:annotationView:pageView:viewPoint:"), DelegateName ("PSPDFViewControllerDidTapOnAnnotation"), NoDefaultValue]
 		bool DidTapOnAnnotation (PSPDFViewController pdfController, PSPDFAnnotation annotation, PointF annotationPoint, PSPDFAnnotationViewProtocol annotationView, PSPDFPageView pageView, PointF viewPoint);
 
@@ -563,12 +564,15 @@ namespace PSPDFKit
 		[Export ("pdfViewController:didSelectAnnotations:onPageView:"), EventArgs ("PSPDFViewControllerDidSelectAnnotations")]
 		void DidSelectAnnotations (PSPDFViewController pdfController, PSPDFAnnotation [] annotations, PSPDFPageView pageView);
 
+		// TODO: Ponder the Switch PSPDFAnnotationViewProtocol to IPSPDFAnnotationViewProtocol retrun type and param
 		[Export ("pdfViewController:annotationView:forAnnotation:onPageView:"), DelegateName ("PSPDFViewControllerAnnotationViewForAnnotation"), NoDefaultValue]
 		PSPDFAnnotationViewProtocol AnnotationViewForAnnotation (PSPDFViewController pdfController, PSPDFAnnotationViewProtocol annotationView, PSPDFAnnotation annotation, PSPDFPageView pageView);
 
+		// TODO: Ponder the Switch PSPDFAnnotationViewProtocol annotationView to IPSPDFAnnotationViewProtocol annotationView
 		[Export ("pdfViewController:willShowAnnotationView:onPageView:"), EventArgs ("PSPDFViewControllerAnnotationView")]
 		void WillShowAnnotationView (PSPDFViewController pdfController, PSPDFAnnotationViewProtocol annotationView, PSPDFPageView pageView);
 
+		// TODO: Ponder the Switch PSPDFAnnotationViewProtocol annotationView to IPSPDFAnnotationViewProtocol annotationView
 		[Export ("pdfViewController:didShowAnnotationView:onPageView:"), EventArgs ("PSPDFViewControllerAnnotationView")]
 		void DidShowAnnotationView (PSPDFViewController pdfController, PSPDFAnnotationViewProtocol annotationView, PSPDFPageView pageView);
 
@@ -3793,7 +3797,7 @@ namespace PSPDFKit
 		IntPtr Constructor (PSPDFDocumentProvider documentProvider);
 
 		[Export ("annotationProviders", ArgumentSemantic.Copy)]
-		PSPDFAnnotationProvider [] AnnotationProviders { get; set; }
+		NSObject [] AnnotationProviders { get; set; }
 
 		[Export ("fileAnnotationProvider", ArgumentSemantic.Retain)]
 		PSPDFFileAnnotationProvider FileAnnotationProvider { get; }

@@ -52,6 +52,9 @@
     <Compile Include="PSPDFKit.linkwith.cs">
       <DependentUpon>PSPDFKit</DependentUpon>
     </Compile>
+    <Compile Include="libarclite.linkwith.cs">
+      <DependentUpon>libarclite.a</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-landscape-legacy.png" />
@@ -448,5 +451,6 @@
   </ItemGroup>
   <ItemGroup>
     <ObjcBindingNativeLibrary Include="PSPDFKit" />
+    <ObjcBindingNativeLibrary Include="libarclite.a" />
   </ItemGroup>
 </Project>
