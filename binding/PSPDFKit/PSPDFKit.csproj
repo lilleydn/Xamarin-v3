@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{03564614-D019-444F-9E27-86E5C5A4EF19}</ProjectGuid>
+    <ProjectTypeGuids>{F5B4F3BC-B597-4E2B-B552-EF5D8A32436F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PSPDFKit</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>PSPDFKit</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\PSPDFKit.bundle\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Xamarin.ObjcBinding.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="Extras.cs" />
+    <Compile Include="PSPDFKit.linkwith.cs">
+      <DependentUpon>PSPDFKit</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-landscape-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-landscape-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-landscape.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-landscape%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-down%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-left-landscape.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-left-landscape%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-left.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-left%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-right-landscape.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-right-landscape%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-right.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\arrow-right%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\audio-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\audio-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\audio.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\audio%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark-active.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark-active%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\bookmark%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-down-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-down-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-down.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-down%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-up-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-up-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-up.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness-up%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\brightness%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark_large.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\checkmark_large%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\circle-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\circle-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\circle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\circle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\color-view-checkmark.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\color-view-checkmark%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\colors-blackwhite.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\colors-modern.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\colors-rainbow.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\colors-vintage.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\comment-overlay.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\comment-overlay%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\edit-annotations-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\edit-annotations-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\edit-annotations.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\edit-annotations%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\embossed-icon%402x~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\embossed-icon%402x~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\embossed-icon~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\embossed-icon~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\eraser-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\eraser-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\eraser.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\eraser%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\error.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\error%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\freetext%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\glyphs.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\highlight%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\image-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\image-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\image.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\image%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ink-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ink-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ink.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ink%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob-green-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob-green-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\knob%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\line%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock%402x~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock%402x~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\lock~iphone.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\mail.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\mail%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\movie-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\movie-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\movie.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\movie%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-check.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-check%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-circle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-circle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-comment.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-comment%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-cross.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-cross%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-help.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-help%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-insert.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-insert%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-key.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-key%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-newparagraph.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-newparagraph%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-note.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-note%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-paragraph.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-paragraph%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-rightarrow.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-rightarrow%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-rightpointer.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-rightpointer%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-star.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\note-star%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\play-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\play-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\play.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\play%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polygon-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polygon-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polygon.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polygon%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polyline-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polyline-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polyline.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\polyline%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\print-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\print-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\print.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\print%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\redo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ribbon-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ribbon-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ribbon.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\ribbon%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\safari-activity.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\safari-activity%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\safari-activity%402x~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\safari-activity~ipad.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\search.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\search%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selection-handle-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selection-handle-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selection-handle.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selection-handle%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selectiontool-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selectiontool-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selectiontool.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\selectiontool%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\signature.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\signature%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\sound.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\sound%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\speaker.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\speaker%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\square-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\square-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\square.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\square%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\squiggly-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\squiggly-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\squiggly.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\squiggly%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\stamp%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\standard-fonts.plist" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\strikeout%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\success.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\success%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-center.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-center%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-left.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-left%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-right.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-alignment-right%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\text%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\thumbnails-active.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\thumbnails-active%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\thumbnails.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\thumbnails%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\trash-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\trash-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\trash.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\trash%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\underline%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\undo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\de.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\en.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\es.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\fr.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\it.lproj\PSPDFKit.strings" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\loupe-mask%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-hi%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo-stemless%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-lo%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask-legacy.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask-legacy%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\loupe\magnifier-ranged-mask%402x.png" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\standard-error.html" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-euc-h" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-euc-v" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-h" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-rksj-h" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-rksj-v" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78-v" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78ms-rksj-h" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\78ms-rksj-v" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\83pv-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90ms-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90ms-RKSJ-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90ms-RKSJ-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90msp-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90msp-RKSJ-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90pv-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\90pv-RKSJ-UCS2C" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Add-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Add-RKSJ-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-3" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-B5pc" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-ETen-B5" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-H-CID" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-H-Host" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-H-Mac" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-CNS1-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-4" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-GBK-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-GBpc-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-H-CID" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-H-Host" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-H-Mac" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-GB1-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Identity-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-4" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-90ms-RKSJ" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-90pv-RKSJ" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-H-CID" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-H-Host" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-H-Mac" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-PS-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-PS-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Japan1-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-H-CID" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-H-Host" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-H-Mac" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-KSCms-UHC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-KSCpc-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Adobe-Korea1-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\B5pc-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\B5pc-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\B5pc-UCS2C" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\B5pc-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\CNS-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\CNS-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETHK-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETHK-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETen-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETen-B5-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETen-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETenms-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\ETenms-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\EUC-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Ext-RKSJ-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Ext-RKSJ-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GB-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GB-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBK-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBK-EUC-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBK-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBK2K-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBK2K-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBKp-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBKp-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBT-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBT-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBpc-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBpc-EUC-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBpc-EUC-UCS2C" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\GBpc-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKdla-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKdla-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKdlb-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKdlb-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKgccs-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKgccs-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKm314-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKm314-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKm471-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKm471-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKscs-B5-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\HKscs-B5-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Identity-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\Identity-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSC-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSC-EUC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-HW-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-HW-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCms-UHC-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\KSCpc-EUC-UCS2C" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-90ms-RKSJ" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-90pv-RKSJ" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-B5pc" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-ETen-B5" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-GBK-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-GBpc-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-KSCms-UHC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UCS2-KSCpc-EUC" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniCNS-UCS2-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniCNS-UCS2-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniCNS-UTF16-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniCNS-UTF16-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniGB-UCS2-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniGB-UCS2-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniGB-UTF16-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniGB-UTF16-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UCS2-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UCS2-HW-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UCS2-HW-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UCS2-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UTF16-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniJIS-UTF16-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKS-UCS2-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKS-UCS2-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKS-UTF16-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKS-UTF16-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKSCms-UCS2-H" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\UniKSCms-UCS2-V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\V" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\wincharsetffff-h" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\wincharsetffff-h2" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\wincharsetffff-v" />
+    <BundleResource Include="Resources\PSPDFKit.bundle\CMaps\wincharsetffff-v2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingNativeLibrary Include="PSPDFKit" />
+  </ItemGroup>
+</Project>
