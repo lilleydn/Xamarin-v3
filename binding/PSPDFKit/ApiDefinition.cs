@@ -2014,7 +2014,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIPageViewController))]
-	interface PSPDFPageViewController : PSPDFTransitionProtocol, IUIPageViewControllerDelegate, IUIPageViewControllerDataSource
+	interface PSPDFPageViewController : IPSPDFTransitionProtocol, IUIPageViewControllerDelegate, IUIPageViewControllerDataSource
 	{
 		[Export ("initWithPDFController:")]
 		IntPtr Constructor (PSPDFViewController pdfController);
@@ -2256,7 +2256,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFModel))]
-	interface PSPDFAction : PSPDFJSONSerializing
+	interface PSPDFAction : IPSPDFJSONSerializing
 	{
 		[Field ("PSPDFActionOptionModal", "__Internal")]
 		NSString ActionOptionModal { get; }
@@ -2956,7 +2956,7 @@ namespace PSPDFKit
 	[BaseType (typeof (NSObject),
 	Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFTextSearchDelegate) })]
-	interface PSPDFTextSearch : PSPDFSearchOperationDelegate
+	interface PSPDFTextSearch : IPSPDFSearchOperationDelegate
 	{
 		[Export ("initWithDocument:")]
 		IntPtr Constructor (PSPDFDocument document);
@@ -3321,7 +3321,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView))]
-	interface PSPDFSearchHighlightView : PSPDFAnnotationViewProtocol
+	interface PSPDFSearchHighlightView : IPSPDFAnnotationViewProtocol
 	{
 		[Export("initWithSearchResult:")]
 		IntPtr Constructor (PSPDFSearchResult searchResult);
@@ -3438,7 +3438,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSTCollectionViewCell))]
-	interface PSPDFThumbnailGridViewCell : PSPDFCacheDelegate
+	interface PSPDFThumbnailGridViewCell : IPSPDFCacheDelegate
 	{
 		[Export ("document", ArgumentSemantic.Retain)] [NullAllowed]
 		PSPDFDocument Document { get; set; }
@@ -3486,7 +3486,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView))]
-	interface PSPDFScrobbleBar : PSPDFCacheDelegate
+	interface PSPDFScrobbleBar : IPSPDFCacheDelegate
 	{
 		[Export ("pdfController", ArgumentSemantic.Assign)]
 		PSPDFViewController PdfController { get; }
@@ -3697,7 +3697,7 @@ namespace PSPDFKit
 	[BaseType (typeof (PSPDFStatefulTableViewController),
 	Delegates=new string [] {"WeakDelegate"},
 	Events=new Type [] { typeof (PSPDFOutlineViewControllerDelegate) })]
-	interface PSPDFOutlineViewController : IUISearchDisplayDelegate, PSPDFStyleable
+	interface PSPDFOutlineViewController : IUISearchDisplayDelegate, IPSPDFStyleable
 	{
 		[Export("initWithDocument:delegate:")]
 		IntPtr Constructor (PSPDFDocument document, [NullAllowed] PSPDFOutlineViewControllerDelegate controllerDelegate);
@@ -3822,7 +3822,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject))]
-	interface PSPDFAnnotationManager : PSPDFAnnotationProviderChangeNotifier
+	interface PSPDFAnnotationManager : IPSPDFAnnotationProviderChangeNotifier
 	{
 		[Notification]
 		[Field ("PSPDFAnnotationsAddedNotification", "__Internal")]
@@ -3893,7 +3893,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFModel))]
-	interface PSPDFAnnotation : PSPDFUndoProtocol, PSPDFJSONSerializing
+	interface PSPDFAnnotation : IPSPDFUndoProtocol, IPSPDFJSONSerializing
 	{
 		[Field ("PSPDFAnnotationStringLink", "__Internal")]
 		NSString AnnotationStringLink { get; }
@@ -4224,7 +4224,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject))]
-	interface PSPDFFileAnnotationProvider : PSPDFAnnotationProvider
+	interface PSPDFFileAnnotationProvider : IPSPDFAnnotationProvider
 	{
 		[Export ("initWithDocumentProvider:")]
 		IntPtr Constructor (PSPDFDocumentProvider documentProvider);
@@ -4631,7 +4631,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView))]
-	interface PSPDFLinkAnnotationBaseView : PSPDFAnnotationViewProtocol
+	interface PSPDFLinkAnnotationBaseView : IPSPDFAnnotationViewProtocol
 	{
 		[Export ("initWithFrame:")]
 		IntPtr Constructor (RectangleF frame);
@@ -4696,7 +4696,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView))]
-	interface PSPDFGenericAnnotationView : PSPDFAnnotationViewProtocol
+	interface PSPDFGenericAnnotationView : IPSPDFAnnotationViewProtocol
 	{
 		[Export ("annotation", ArgumentSemantic.Retain)]  [NullAllowed] [New]
 		PSPDFAnnotation Annotation { get; set; }
@@ -4708,7 +4708,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFGenericAnnotationView))]
-	interface PSPDFHostingAnnotationView : PSPDFRenderDelegate
+	interface PSPDFHostingAnnotationView : IPSPDFRenderDelegate
 	{
 		[Export ("annotationImageView", ArgumentSemantic.Retain)]
 		UIImageView AnnotationImageView { get; }
@@ -4805,7 +4805,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController))]
-	interface PSPDFWebViewController : PSPDFStyleable
+	interface PSPDFWebViewController : IPSPDFStyleable
 	{
 		[Static]
 		[Export ("modalWebViewWithURL:")]
@@ -5049,7 +5049,7 @@ namespace PSPDFKit
 	delegate void PSPDFAnnotationToolbarCompletionHandler (bool finished);
 
 	[BaseType (typeof (UIToolbar))]
-	interface PSPDFAnnotationToolbar : PSPDFDrawViewDelegate, PSPDFSelectionViewDelegate
+	interface PSPDFAnnotationToolbar : IPSPDFDrawViewDelegate, IPSPDFSelectionViewDelegate
 	{
 		[Notification]
 		[Field ("PSPDFAnnotationToolbarWillHideNotification", "__Internal")]
@@ -5276,7 +5276,7 @@ namespace PSPDFKit
 	[BaseType (typeof (PSPDFBaseViewController),
 	Delegates = new string [] {"WeakDelegate"},
 	Events = new Type [] { typeof (PSPDFSignatureViewControllerDelegate) })]
-	interface PSPDFSignatureViewController : PSPDFStyleable
+	interface PSPDFSignatureViewController : IPSPDFStyleable
 	{
 		[Export ("lines", ArgumentSemantic.Retain)]
 		NSObject [] Lines { get; }
@@ -5482,7 +5482,7 @@ namespace PSPDFKit
 	delegate void PSPDFNoteAnnotationViewControllerCustomizationHandler (PSPDFNoteAnnotationViewController controller);
 
 	[BaseType (typeof (PSPDFBaseViewController))]
-	interface PSPDFNoteAnnotationViewController : PSPDFStyleable
+	interface PSPDFNoteAnnotationViewController : IPSPDFStyleable
 	{
 		[Export ("initWithAnnotation:editable:")]
 		IntPtr Constructor (PSPDFAnnotation annotation, bool allowEditing);
@@ -5546,7 +5546,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFStatefulTableViewController))]
-	interface PSPDFAnnotationTableViewController : PSPDFStyleable
+	interface PSPDFAnnotationTableViewController : IPSPDFStyleable
 	{
 		[Export ("initWithDocument:delegate:")]
 		IntPtr Constructor (PSPDFDocument document, [NullAllowed] PSPDFAnnotationTableViewControllerDelegate controllerDelegate);
@@ -5595,7 +5595,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject))]
-	interface PSPDFKeychainAnnotationSetsStore : PSPDFAnnotationSetStore
+	interface PSPDFKeychainAnnotationSetsStore : IPSPDFAnnotationSetStore
 	{
 
 	}
@@ -5632,7 +5632,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController))]
-	interface PSPDFContainerViewController : PSPDFStyleable
+	interface PSPDFContainerViewController : IPSPDFStyleable
 	{
 		[Wrap ("WeakDelegate")]
 		PSPDFContainerViewControllerDelegate Delegate { get; set; }
@@ -5931,7 +5931,7 @@ namespace PSPDFKit
 	delegate void PSPDFEmailBarButtonItemMailComposeViewControllerCustomizationHandler (MFMailComposeViewController controller);
 	
 	[BaseType (typeof (PSPDFBarButtonItem))]
-	interface PSPDFEmailBarButtonItem : PSPDFDocumentSharingViewControllerDelegate, IMFMailComposeViewControllerDelegate
+	interface PSPDFEmailBarButtonItem : IPSPDFDocumentSharingViewControllerDelegate, IMFMailComposeViewControllerDelegate
 	{
 		[Export ("sendOptions", ArgumentSemantic.Assign)]
 		PSPDFDocumentSharingOptions SendOptions { get; set; }
@@ -5946,7 +5946,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBarButtonItem))]
-	interface PSPDFOpenInBarButtonItem : PSPDFDocumentSharingViewControllerDelegate
+	interface PSPDFOpenInBarButtonItem : IPSPDFDocumentSharingViewControllerDelegate
 	{
 		[Export ("showPrintAction", ArgumentSemantic.Assign)]
 		bool ShowPrintAction { get; set; }
@@ -6008,7 +6008,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBarButtonItem))]
-	interface PSPDFAnnotationBarButtonItem : PSPDFAnnotationToolbarDelegate
+	interface PSPDFAnnotationBarButtonItem : IPSPDFAnnotationToolbarDelegate
 	{
 		[Export ("isAvailableBlocking")]
 		bool IsAvailableBlocking ();
@@ -6630,7 +6630,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject))]
-	interface PSPDFXFDFAnnotationProvider : PSPDFAnnotationProvider
+	interface PSPDFXFDFAnnotationProvider : IPSPDFAnnotationProvider
 	{
 		[Export ("initWithDocumentProvider:fileURL:")]
 		IntPtr Constructor (PSPDFDocumentProvider documentProvider, NSUrl xfdfFileUrl);
@@ -7500,7 +7500,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFStaticTableViewController))]
-	interface PSPDFDocumentSharingViewController : PSPDFStyleable
+	interface PSPDFDocumentSharingViewController : IPSPDFStyleable
 	{
 		[Export ("initWithDocument:visiblePages:allowedSharingOptions:delegate:")]
 		IntPtr Constructor (PSPDFDocument document, [NullAllowed] NSOrderedSet visiblePages, PSPDFDocumentSharingOptions sharingOptions, PSPDFDocumentSharingViewControllerDelegate controllerDelegate);
@@ -7551,7 +7551,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseTableViewController))]
-	interface PSPDFSignatureSelectorViewController : PSPDFStyleable
+	interface PSPDFSignatureSelectorViewController : IPSPDFStyleable
 	{
 		[Export ("initWithSignatures:")]
 		IntPtr Constructor (PSPDFInkAnnotation [] signature);
@@ -7624,7 +7624,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView))]
-	interface PSPDFResizableView : PSPDFLongPressGestureRecognizerDelegate
+	interface PSPDFResizableView : IPSPDFLongPressGestureRecognizerDelegate
 	{
 		[Export ("initWithTrackedView:")]
 		IntPtr Constructor (UIView trackedView);
@@ -7838,7 +7838,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController))]
-	interface PSPDFAnnotationGridViewController : PSPDFStyleable
+	interface PSPDFAnnotationGridViewController : IPSPDFStyleable
 	{
 		[Export ("initWithDelegate:")]
 		IntPtr Constructor (PSPDFAnnotationGridViewControllerDelegate controllerDelegate);
