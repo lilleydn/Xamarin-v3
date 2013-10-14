@@ -496,8 +496,63 @@ namespace PSPDFKit
 		}
 	}
 
+	public partial class PSPDFBookmarkParser : NSObject
+	{
+		public virtual bool ClearAllBookmarksWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _ClearAllBookmarksWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+
+		public virtual PSPDFBookmark [] LoadBookmarksWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				PSPDFBookmark [] ret = _LoadBookmarksWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+
+		public virtual bool SaveBookmarksWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _SaveBookmarksWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+	}
+
 	public partial class PSPDFFileAnnotationProvider : NSObject
 	{
+		public virtual PSPDFAnnotation [] AnnotationsForPage (uint page, CGPDFPage pageRef)
+		{
+			return AnnotationsForPage_ (page, pageRef.Handle);
+		}
+
+		public virtual PSPDFAnnotation [] ParseAnnotationsForPage (uint page, CGPDFPage pageRef)
+		{
+			return ParseAnnotationsForPage_ (page, pageRef.Handle);
+		}
+
 		public virtual bool TryLoadAnnotationsFromFileWithError (out NSError error)
 		{
 			unsafe 
@@ -512,14 +567,32 @@ namespace PSPDFKit
 			}
 		}
 
-		public virtual PSPDFAnnotation [] AnnotationsForPage (uint page, CGPDFPage pageRef)
+		public virtual bool SaveAnnotationsWithOptions (NSDictionary options, out NSError error)
 		{
-			return AnnotationsForPage_ (page, pageRef.Handle);
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _SaveAnnotationsWithOptions (options, val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
 		}
 
-		public virtual PSPDFAnnotation [] ParseAnnotationsForPage (uint page, CGPDFPage pageRef)
+		public virtual NSDictionary LoadAnnotationsWithError (out NSError error)
 		{
-			return ParseAnnotationsForPage_ (page, pageRef.Handle);
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				NSDictionary ret = _LoadAnnotationsWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
 		}
 	}
 
@@ -710,6 +783,34 @@ namespace PSPDFKit
 		{
 			return PageInfoForPage_ (page, pageRef.Handle);
 		}
+
+		public virtual bool EnsureDataDirectoryExists (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _EnsureDataDirectoryExists (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+
+		public virtual bool SaveAnnotationsWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _SaveAnnotationsWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
 	}
 
 	public partial class PSPDFDocumentProvider : NSObject
@@ -740,7 +841,12 @@ namespace PSPDFKit
 
 		public virtual CGPDFPage RequestPageRefForPageNumber (uint page, out NSError error)
 		{
-			var ptr = RequestPageRefForPageNumber_ (page, out error);
+			IntPtr val;
+			IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+			var ptr = RequestPageRefForPageNumber_ (page, val_addr);
+			error = (NSError) Runtime.GetNSObject (val);
+
 			return new CGPDFPage (ptr);
 		}
 
@@ -752,6 +858,34 @@ namespace PSPDFKit
 		public virtual PSPDFPageInfo PageInfoForPage (uint page, CGPDFPage pageRef)
 		{
 			return PageInfoForPage_ (page, pageRef.Handle);
+		}
+
+		public virtual NSData DataRepresentationWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				NSData ret = _DataRepresentationWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+
+		public virtual bool SaveAnnotationsWithOptions (NSDictionary options, out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _SaveAnnotationsWithOptions (options, val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
 		}
 	}
 
@@ -918,6 +1052,20 @@ namespace PSPDFKit
 		{
 			return AnnotationsForPage_ (page, type, pageRef.Handle);
 		}
+
+		public virtual bool SaveAnnotationsWithOptions (NSDictionary options, out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				bool ret = _SaveAnnotationsWithOptions (options, val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
 	}
 
 	public partial class PSPDFFormElement : PSPDFWidgetAnnotation
@@ -997,6 +1145,23 @@ namespace PSPDFKit
 				PSPDFDefaultPBKDFNumberOfRounds = (uint)Marshal.PtrToStructure(ptr, typeof(uint));
 
 				return PSPDFDefaultPBKDFNumberOfRounds;
+			}
+		}
+	}
+
+	public partial class PSPDFStampAnnotation : PSPDFAnnotation
+	{
+		public virtual UIImage LoadImageWithError (out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				UIImage ret = _LoadImageWithError (val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
 			}
 		}
 	}
