@@ -99,9 +99,9 @@ namespace PSPDFKit
 	[Flags]
 	public enum PSPDFTextSelectionMenuAction : uint
 	{
-		Search              = 1 << 0,
-		Define              = 1 << 1, // Starting with iOS 7, this will also offer Wikipedia in the controller.
-		WikipediaAsFallback = 1 << 2, // Only displayed if Define fails/is missing. Ignored as of iOS 7.
+		Search              = 1 << 0, /// Allow search from selected text.
+		Define              = 1 << 1, /// Starting with iOS 7, this will also offer Wikipedia in the controller.
+		WikipediaAsFallback = 1 << 2, /// Only displayed if Define fails/is missing. Ignored as of iOS 7.
 		All                 = uint.MaxValue
 	}
 
@@ -642,6 +642,8 @@ namespace PSPDFKit
 		XFDFWriterCannotWriteToStream = 1200,
 		FDFWriterCannotWriteToStream = 1250,
 		SoundEncoderInvalidInput = 1300,
+		GalleryInvalidManifest = 1400,
+		InvalidRemoteContent = 1500,
 		FeatureNotEnabled = 100000,
 		Unknown = int.MaxValue
 	}
@@ -651,6 +653,24 @@ namespace PSPDFKit
 	{
 		Simple    = 1 << (1-1),
 		Composite = 1 << (2-1)
+	}
+
+	public enum PSPDFGalleryViewControllerState : uint
+	{
+		// The view controller is currently not doing anything.
+		Idle,
+
+		// The manifest file is currently downloaded.
+		Loading,
+
+		// The manifest file has been downloaded and the view controller is ready.
+		Ready,
+
+		// The view controller could not download the manifest file because of a connection error.
+		ConnectionError,
+
+		// The view controller could download the manifest file but could not parse it.
+		ManifestError
 	}
 
 

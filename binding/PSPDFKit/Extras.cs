@@ -811,6 +811,29 @@ namespace PSPDFKit
 				return ret;
 			}
 		}
+
+		private static bool PSPDFUseLegacyUIDGenerationMethod;
+		public static bool UseLegacyUIDGenerationMethod
+		{
+			get 
+			{
+				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFUseLegacyUIDGenerationMethod");
+
+				PSPDFUseLegacyUIDGenerationMethod = Convert.ToBoolean(Marshal.ReadByte(ptr));
+
+				return PSPDFUseLegacyUIDGenerationMethod;
+			}
+			set 
+			{
+				PSPDFUseLegacyUIDGenerationMethod = value;
+
+				IntPtr RTLD_MAIN_ONLY = Dlfcn.dlopen (null, 0);
+				IntPtr ptr = Dlfcn.dlsym (RTLD_MAIN_ONLY, "PSPDFUseLegacyUIDGenerationMethod");
+
+				Marshal.WriteByte (ptr, Convert.ToByte (PSPDFUseLegacyUIDGenerationMethod));
+			}
+		}
 	}
 
 	public partial class PSPDFDocumentProvider : NSObject
@@ -826,33 +849,6 @@ namespace PSPDFKit
 				IntPtr ptr = this.DataProvider_;
 				return new CGDataProvider(ptr);
 			}
-		}
-
-		public virtual CGPDFDocument RequestDocumentRefWithOwner (NSObject owner)
-		{
-			var ptr = RequestDocumentRefWithOwner_ (owner);
-			return new CGPDFDocument (ptr);
-		}
-
-		public virtual void ReleaseDocumentRef (CGPDFDocument documentRef, NSObject owner)
-		{
-			ReleaseDocumentRef_ (documentRef.Handle, owner);
-		}
-
-		public virtual CGPDFPage RequestPageRefForPageNumber (uint page, out NSError error)
-		{
-			IntPtr val;
-			IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
-
-			var ptr = RequestPageRefForPageNumber_ (page, val_addr);
-			error = (NSError) Runtime.GetNSObject (val);
-
-			return new CGPDFPage (ptr);
-		}
-
-		public virtual void ReleasePageRef (CGPDFPage pageRef)
-		{
-			ReleasePageRef_ (pageRef.Handle);
 		}
 
 		public virtual PSPDFPageInfo PageInfoForPage (uint page, CGPDFPage pageRef)
