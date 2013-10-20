@@ -86,7 +86,7 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="PSPDFKit">
-      <HintPath>..\..\PSPDFKit\PSPDFKit\bin\Debug\PSPDFKit.dll</HintPath>
+      <HintPath>..\..\..\binding\PSPDFKit\PSPDFKit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
