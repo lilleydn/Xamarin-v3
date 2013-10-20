@@ -53,6 +53,10 @@
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
     <ConsolePause>false</ConsolePause>
+    <MtouchExtraArgs>-nosymbolstrip</MtouchExtraArgs>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -82,7 +86,7 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="PSPDFKit">
-      <HintPath>..\..\..\binding\PSPDFKit\PSPDFKit.dll</HintPath>
+      <HintPath>..\..\PSPDFKit\PSPDFKit\bin\Debug\PSPDFKit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
