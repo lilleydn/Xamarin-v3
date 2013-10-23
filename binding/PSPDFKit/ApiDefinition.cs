@@ -8372,7 +8372,7 @@ namespace PSPDFKit
 		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForAppearingItem (NSIndexPath itemIndexPath);
 
 		[Export ("finalLayoutAttributesForDisappearingItemAtIndexPath:")]
-		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDisappearingItem (NSIndexPath itemIndexPath)
+		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDisappearingItem (NSIndexPath itemIndexPath);
 
 		//TODO: Find out the origin of this method (not in MonoDoc)
 		[Export ("initialLayoutAttributesForInsertedSupplementaryElementOfKind:atIndexPath:")]
