@@ -489,6 +489,9 @@ namespace PSPDFKit
 		[Export ("animateSearchHighlight:")]
 		void AnimateSearchHighlight (PSPDFSearchResult searchResult);
 
+		[Export ("updateThumbnailBarFrameAnimated:")]
+		void UpdateThumbnailBarFrameAnimated (PSPDFSearchResult searchResult);
+
 		[Export ("pageTransitionController", ArgumentSemantic.Retain)]
 		UIViewController PageTransitionController { get; }
 
@@ -827,6 +830,9 @@ namespace PSPDFKit
 		[Export ("unlockWithPassword:")]
 		bool UnlockWithPassword (string password);
 
+		[Export ("lock")]
+		void Lock ();
+
 		[Export ("password", ArgumentSemantic.Copy)]
 		string Password { get; set; }
 
@@ -1094,6 +1100,9 @@ namespace PSPDFKit
 
 		[Export ("PDFBox", ArgumentSemantic.Assign)]
 		CGPDFBox PdfBox { get; set; }
+
+		[Export ("boxRect:forPage:error:")] [Internal]
+		RectangleF _BoxRectForPage (CGPDFBox boxType, uint page, IntPtr error);
 
 		[Export ("aspectRatioVariance")]
 		float AspectRatioVariance ();
@@ -1472,6 +1481,12 @@ namespace PSPDFKit
 
 		[Export ("sortedGlyphs:")]
 		PSPDFGlyph [] SortedGlyphs (PSPDFGlyph [] glyphs);
+
+		[Export ("presentWikipediaBrowserForSelectedText")]
+		UIViewController PresentWikipediaBrowserForSelectedText ();
+
+		[Export ("dictionaryHasDefinitionForTerm:")]
+		bool DictionaryHasDefinitionForTerm (string term);
 
 		// PSPDFTextSelectionView (SubclassingHooks) Category
 
@@ -3442,7 +3457,7 @@ namespace PSPDFKit
 		[Export("updateCell")]
 		void UpdateCell ();
 
-		// PSPDFThumbnailGridViewCell (Subclassing) Category
+		// PSPDFThumbnailGridViewCell (SubclassingHooks) Category
 
 		[Export ("imageView", ArgumentSemantic.Retain)] [NullAllowed]
 		UIImageView ImageView { get; set; }
@@ -4316,6 +4331,9 @@ namespace PSPDFKit
 
 		[Export ("textAlignment", ArgumentSemantic.Assign)]
 		UITextAlignment TextAlignment { get; set; }
+
+		[Export ("verticalTextAlignment", ArgumentSemantic.Assign)]
+		PSPDFVerticalAlignment VerticalTextAlignment { get; set; }
 
 		[Export ("defaultFontSize")]
 		float DefaultFontSize { get; }
@@ -5244,6 +5262,12 @@ namespace PSPDFKit
 
 		[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)] [NullAllowed]
 		NSObject /* HACK: NSOrderedSet */ EditableAnnotationTypes { get; set; }
+
+		[Export ("undoButtonItem", ArgumentSemantic.Retain)]
+		UIBarButtonItem UndoButtonItem { get; }
+
+		[Export ("redoButtonItem", ArgumentSemantic.Retain)]
+		UIBarButtonItem RedoButtonItem { get; }
 	}
 
 	interface IPSPDFSignatureViewControllerDelegate { }
@@ -5397,10 +5421,6 @@ namespace PSPDFKit
 		[Export ("colorsFromPaletteURL:addDarkenedVariants:")]
 		UIColor [] ColorsFromPaletteURL (NSUrl paletteURL, bool darkenedVariants);
 
-		[Static]
-		[Export ("setDefaultColorArrays:")]
-		void SetDefaultColorArrays ([NullAllowed] UIColor [] defaultColorArrays);
-
 		[Export ("initWithColors:")]
 		IntPtr Constructor (UIColor [] colors);
 
@@ -5458,6 +5478,9 @@ namespace PSPDFKit
 	{
 		[Export ("noteAnnotationController:didDeleteAnnotation:")]
 		void DidDeleteAnnotation (PSPDFNoteAnnotationViewController noteAnnotationController, PSPDFAnnotation annotation);
+
+		[Export ("noteAnnotationController:didClearContentsForAnnotation:")]
+		void DidClearContents (PSPDFNoteAnnotationViewController noteAnnotationController, PSPDFAnnotation annotation);
 
 		[Export ("noteAnnotationController:didChangeAnnotation:")]
 		void DidChangeAnnotation (PSPDFNoteAnnotationViewController noteAnnotationController, PSPDFAnnotation annotation);
@@ -7267,6 +7290,9 @@ namespace PSPDFKit
 		[Export ("initWithDictionary:error:")]
 		IntPtr Constructor (NSDictionary dictionary, out NSError error);
 
+		[Export ("initWithContentURL:caption:")]
+		IntPtr Constructor (NSUrl contentUrl, string caption);
+
 		[Export ("caption", ArgumentSemantic.Copy)]
 		string Caption { get; }
 
@@ -7359,7 +7385,7 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController))]
-	interface PSPDFGalleryViewController
+	interface PSPDFGalleryViewController : PSPDFOverridable
 	{
 		[Export ("initWithLinkAnnotation:")]
 		IntPtr Constructor (PSPDFLinkAnnotation annotation);

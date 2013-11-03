@@ -812,6 +812,20 @@ namespace PSPDFKit
 			}
 		}
 
+		public virtual RectangleF BoxRectForPage (CGPDFBox boxType, uint page, out NSError error)
+		{
+			unsafe 
+			{
+				IntPtr val;
+				IntPtr val_addr = (IntPtr) ((IntPtr *) &val);
+
+				RectangleF ret = _BoxRectForPage (boxType, page, val_addr);
+				error = (NSError) Runtime.GetNSObject (val);
+
+				return ret;
+			}
+		}
+
 		private static bool PSPDFUseLegacyUIDGenerationMethod;
 		public static bool UseLegacyUIDGenerationMethod
 		{

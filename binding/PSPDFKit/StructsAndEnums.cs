@@ -90,6 +90,7 @@ namespace PSPDFKit
 	public enum PSPDFPageRenderingMode
 	{
 		ThumbnailThenFullPage,
+		ThumbnailIfInMemoryThenFullPage,
 		FullPage,
 		FullPageBlocking,
 		ThumbnailThenRender,
@@ -618,7 +619,7 @@ namespace PSPDFKit
 		PageInvalid = 100,
 		UnableToOpenPDF = 200,
 		UnableToGetPageReference = 210,
-		UnableToGetStream = 220,
+		UnableToGetStream = 211,
 		PageRenderSizeIsEmpty = 220,
 		PageRenderClipRectTooLarge = 230,
 		PageRenderGraphicsContextNil = 240,
@@ -671,6 +672,13 @@ namespace PSPDFKit
 
 		// The view controller could download the manifest file but could not parse it.
 		ManifestError
+	}
+
+	public enum PSPDFVerticalAlignment : uint
+	{
+		Top,
+		Center,
+		Bottom
 	}
 
 
