@@ -490,7 +490,7 @@ namespace PSPDFKit
 		void AnimateSearchHighlight (PSPDFSearchResult searchResult);
 
 		[Export ("updateThumbnailBarFrameAnimated:")]
-		void UpdateThumbnailBarFrameAnimated (PSPDFSearchResult searchResult);
+		void UpdateThumbnailBarFrameAnimated ([NullAllowed]PSPDFSearchResult searchResult);
 
 		[Export ("pageTransitionController", ArgumentSemantic.Retain)]
 		UIViewController PageTransitionController { get; }
