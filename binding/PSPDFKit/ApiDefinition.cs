@@ -2521,7 +2521,7 @@ namespace PSPDFKit
 
 		[Static]
 		[Export ("sharedStyleManager")]
-		PSPDFRenderQueue SharedStyleManager { get; }
+		PSPDFStyleManager SharedStyleManager { get; }
 
 		[Export ("styleKeys", ArgumentSemantic.Copy)]
 		NSSet StyleKeys { get; set; }
