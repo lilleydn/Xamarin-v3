@@ -2521,7 +2521,7 @@ namespace PSPDFKit
 
 		[Static]
 		[Export ("sharedStyleManager")]
-		PSPDFRenderQueue SharedStyleManager { get; }
+		PSPDFStyleManager SharedStyleManager { get; }
 
 		[Export ("styleKeys", ArgumentSemantic.Copy)]
 		NSSet StyleKeys { get; set; }
@@ -5085,6 +5085,7 @@ namespace PSPDFKit
 		PSPDFViewController PdfController { get; set; }
 
 		[Export ("toolbarMode", ArgumentSemantic.Copy)]
+		[NullAllowed]
 		string ToolbarMode { get; set; }
 
 		[Export ("drawColor", ArgumentSemantic.Retain)] [NullAllowed]
@@ -5103,6 +5104,7 @@ namespace PSPDFKit
 		PSPDFLineEndType LineEnd2 { get; set; }
 
 		[Export ("fontName", ArgumentSemantic.Copy)]
+		[NullAllowed]
 		string FontName { get; set; }
 
 		[Export ("fontSize", ArgumentSemantic.Assign)]
