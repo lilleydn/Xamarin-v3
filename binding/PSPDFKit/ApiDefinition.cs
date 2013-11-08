@@ -3930,6 +3930,9 @@ namespace PSPDFKit
 		[Field ("PSPDFAnnotationStringPolyLine", "__Internal")]
 		NSString AnnotationStringPolyLine { get; }
 
+		[Field ("PSPDFAnnotationStringSignature", "__Internal")]
+		NSString AnnotationStringSignature { get; }
+
 		[Field ("PSPDFAnnotationStringStamp", "__Internal")]
 		NSString AnnotationStringStamp { get; }
 
