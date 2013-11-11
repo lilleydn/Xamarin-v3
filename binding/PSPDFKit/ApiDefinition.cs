@@ -943,10 +943,10 @@ namespace PSPDFKit
 		NSString IgnoreDisplaySettings { get; }
 
 		[Export ("imageForPage:size:clippedToRect:annotations:options:receipt:error:")]
-		UIImage ImageForPage (uint page, SizeF size, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options, out PSPDFRenderReceipt receipt, out NSError error);
+		UIImage ImageForPage (uint page, SizeF size, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, [NullAllowed] NSDictionary options, out PSPDFRenderReceipt receipt, out NSError error);
 
 		[Export ("renderPage:context:size:clippedToRect:annotations:options:error:")]
-		PSPDFRenderReceipt RenderPage (uint page, CGContext context, SizeF size, RectangleF clipRect, PSPDFAnnotation [] annotations, NSDictionary options, out NSError error);
+		PSPDFRenderReceipt RenderPage (uint page, CGContext context, SizeF size, RectangleF clipRect, [NullAllowed] PSPDFAnnotation [] annotations, [NullAllowed] NSDictionary options, out NSError error);
 
 		[Export ("renderOptions", ArgumentSemantic.Copy)][NullAllowed]
 		NSDictionary RenderOptions { get; set; }
@@ -1191,12 +1191,6 @@ namespace PSPDFKit
 		[Export ("prepareForReuse")]
 		void PrepareForReuse ();
 
-		[Wrap ("WeakDelegate")]
-		PSPDFPageViewDelegate Delegate { get; set; }
-
-		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
 		[Export ("updateRenderView")]
 		void UpdateRenderView ();
 
@@ -1375,6 +1369,9 @@ namespace PSPDFKit
 
 		[Export ("tappableAnnotationsAtPoint:")]
 		PSPDFAnnotation [] TappableAnnotationsAtPoint (PointF viewPoint);
+
+		[Export ("tappableAnnotationsForLongPressAtPoint:")]
+		PSPDFAnnotation [] TappableAnnotationsForLongPressAtPoint (PointF viewPoint);
 
 		[Export ("singleTappedAtViewPoint:")]
 		bool SingleTappedAtViewPoint (PointF viewPoint);
@@ -4580,9 +4577,6 @@ namespace PSPDFKit
 
 		[Export ("soundStreamData")]
 		NSData SoundStreamData ();
-
-		[Export ("setStreamPropertiesWithDescription:")]
-		void SetStreamPropertiesWithDescription (NSDictionary streamDescription);
 	}
 
 	[BaseType (typeof (PSPDFAbstractLineAnnotation))]
@@ -4632,6 +4626,9 @@ namespace PSPDFKit
 
 		[Export ("didChangePageBounds:")]
 		void DidChangePageBounds (RectangleF bounds);
+
+		[Export ("didTapAtPoint:")]
+		void DidTapAtPoint (PointF point);
 
 		[Export ("viewController", ArgumentSemantic.Assign)] [NullAllowed]
 		UIViewController ViewController { get; set; }
@@ -4874,8 +4871,8 @@ namespace PSPDFKit
 		[Export ("action:")]
 		void Action (NSObject sender);
 
-		[Export ("doneButtonClicked:")]
-		void DoneButtonClicked (NSObject sender);
+		[Export ("done:")]
+		void Done (NSObject sender);
 	}
 
 	interface IPSPDFSelectionViewDelegate { }
@@ -5593,6 +5590,10 @@ namespace PSPDFKit
 	[BaseType (typeof (PSPDFNonAnimatingTableViewCell))]
 	interface PSPDFAnnotationCell
 	{
+		[Static]
+		[Export ("heightForAnnotation:constrainedToSize:")]
+		float HeightForAnnotation (PSPDFAnnotation annotation, SizeF constrainedToSize);
+
 		[Export ("annotation", ArgumentSemantic.Retain)] [NullAllowed]
 		PSPDFAnnotation Annotation { get; set; }
 	}
@@ -6753,7 +6754,7 @@ namespace PSPDFKit
 		[Export ("defaultValue", ArgumentSemantic.Retain)] [NullAllowed]
 		NSObject DefaultValue { get; set; }
 
-		[Export ("appearanceState", ArgumentSemantic.Retain)] [NullAllowed]
+		[Export ("appearanceState", ArgumentSemantic.Copy)] [NullAllowed]
 		string AppearanceState { get; set; }
 
 		[Export ("exportValue")]
@@ -6792,17 +6793,14 @@ namespace PSPDFKit
 		[Export ("fullyQualifiedFieldName")]
 		string FullyQualifiedFieldName { get; }
 
+		// PSPDFFormElement (SubclassingHooks) Category
+
 		[Export ("handleTapInView:")] [New]
 		bool HandleTapInView (PSPDFPageView pdfPageView);
 
-		[Export ("appendCommonFormElementPDFData:")]
-		void AppendCommonFormElementPDFData (NSMutableData pdfData);
+		[Export ("drawHighlightInContext:")]
+		void DrawHighlightInContext (CGContext context);
 
-		[Export ("appendFieldValuePDFData:")]
-		void AppendFieldValuePDFData (NSMutableData pdfData);
-
-		[Export ("resetWithAction:")]
-		void ResetWithAction (PSPDFResetFormAction action);
 	}
 
 	[BaseType (typeof (PSPDFFormElement))]
@@ -6829,10 +6827,10 @@ namespace PSPDFKit
 		[Export ("deselect")]
 		void Deselect ();
 
-		[Export ("opt", ArgumentSemantic.Retain)] [NullAllowed]
+		[Export ("opt", ArgumentSemantic.Copy)] [NullAllowed]
 		NSObject [] Opt { get; set; }
 
-		[Export ("onState", ArgumentSemantic.Retain)] [NullAllowed]
+		[Export ("onState", ArgumentSemantic.Copy)] [NullAllowed]
 		string OnState { get; set; }
 	}
 
@@ -6891,6 +6889,12 @@ namespace PSPDFKit
 
 		[Export ("isPassword")]
 		bool IsPassword { get; }
+
+		[Export ("inputFormat", ArgumentSemantic.Assign)]
+		PSPDFTextInputFormat InputFormat { get; set; } 
+
+		[Export ("formatString", ArgumentSemantic.Retain)]
+		string FormatString { get; set; } 
 	}
 
 	[BaseType (typeof (UIView))]
@@ -7421,6 +7425,9 @@ namespace PSPDFKit
 
 		[Export ("setFullscreen:animated:")]
 		void SetFullscreen (bool fullscreen, bool animated);
+
+		[Export ("zoomScale", ArgumentSemantic.Assign)]
+		float ZoomScale { get; set; }
 	}
 
 	interface IPSPDFFormSubmissionDelegate { }
@@ -8020,6 +8027,9 @@ namespace PSPDFKit
 
 		[Export ("toUnicodeMap", ArgumentSemantic.Retain)]
 		NSObject ToUnicodeMap { get; }
+
+		[Export ("fontFileDescriptor", ArgumentSemantic.Retain)]
+		NSObject FontFileDescriptor { get; }
 
 		[Export ("fontCMap", ArgumentSemantic.Retain)]
 		NSObject FontCMap { get; }

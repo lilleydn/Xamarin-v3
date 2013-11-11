@@ -606,6 +606,14 @@ namespace PSPDFKit
 		RichText        = 1 << (26-1)
 	}
 
+	public enum PSPDFTextInputFormat : uint
+	{
+		Normal,
+		Number,
+		Date,
+		Time
+	}
+
 	public enum PSPDFSubmitFormActionFormat : uint
 	{
 		FDF,
