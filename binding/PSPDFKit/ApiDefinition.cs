@@ -8286,13 +8286,11 @@ namespace PSPDFKit
 
 	// PSTCollectionView
 
-	delegate void PSTCollectionViewPerformBatchUpdatesCompletionHandler (bool finished);
-
 	[BaseType (typeof (UIScrollView))]
 	interface PSTCollectionView
 	{
 		[Export("initWithFrame:collectionViewLayout:")]
-		IntPtr Constructor (RectangleF rect, PSTCollectionViewLayout layout);
+		IntPtr Constructor (RectangleF frame, PSTCollectionViewLayout layout);
 
 		[Export ("collectionViewLayout", ArgumentSemantic.Retain)] [NullAllowed]
 		PSTCollectionViewLayout CollectionViewLayout { get; set; }
@@ -8300,35 +8298,36 @@ namespace PSPDFKit
 		[Wrap ("WeakDelegate")] [New]
 		PSTCollectionViewDelegate Delegate { get; set; }
 
-		[Export ("delegate", ArgumentSemantic.Assign)][NullAllowed] [New]
+		[Export ("delegate", ArgumentSemantic.Assign)] [NullAllowed] [New]
 		NSObject WeakDelegate { get; set; }
 
 		[Wrap ("WeakDataSource")]
 		PSTCollectionViewDataSource DataSource { get; set; }
 
-		[Export ("dataSource", ArgumentSemantic.Assign)][NullAllowed]
+		[Export ("dataSource", ArgumentSemantic.Assign)] [NullAllowed]
 		NSObject WeakDataSource { get; set; }
 
 		[Export ("backgroundView", ArgumentSemantic.Retain)] [NullAllowed]
 		UIView BackgroundView { get; set; }
 
 		[Export("registerClass:forCellWithReuseIdentifier:")]
-		void RegisterClass (Class cellClass, string identifier);
+		//Xamarin.iOS UICollectionView takes a Type as cellClass (called cellType)
+		void RegisterClassForCell (Class cellClass, string reuseIdentifier);
 
 		[Export("registerClass:forSupplementaryViewOfKind:withReuseIdentifier:")]
-		void RegisterClass (Class cellClass,string elementKind, string identifier);
+		void RegisterClassForSupplementaryView (Class viewClass, string kind, string reuseIdentifier);
 
 		[Export("registerNib:forCellWithReuseIdentifier:")]
-		void RegisterNib (UINib nib, string identifier);
+		void RegisterNibForCell (UINib nib, string reuseIdentifier);
 
 		[Export("registerNib:forSupplementaryViewOfKind:withReuseIdentifier:")]
-		void RegisterNib (UINib nib, string kind, string identifier);
+		void RegisterNibForSupplementaryView (UINib nib, string kind, string reuseIdentifier);
 
 		[Export("dequeueReusableCellWithReuseIdentifier:forIndexPath:")]
-		NSObject DequeueReusableCellWithReuseIdentifier (string identifier, NSIndexPath indexPath);
+		NSObject DequeueReusableCell (string reuseIdentifier, NSIndexPath indexPath);
 
 		[Export("dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:")]
-		NSObject DequeueReusableSupplementaryViewOfKind (string elementKind, string identifier, NSIndexPath indexPath);
+		NSObject DequeueReusableSupplementaryView (string kind, string identifier, NSIndexPath indexPath);
 
 		[Export ("allowsSelection")]
 		bool AllowsSelection { get; set; }
@@ -8337,13 +8336,13 @@ namespace PSPDFKit
 		bool AllowsMultipleSelection { get; set; }
 
 		[Export ("indexPathsForSelectedItems")]
-		NSIndexPath [] IndexPathsForSelectedItems { get; }
+		NSIndexPath[] GetIndexPathsForSelectedItems ();
 
 		[Export ("selectItemAtIndexPath:animated:scrollPosition:")]
-		void SelectItemAtIndexPath (NSIndexPath indexPath, bool animated, PSTCollectionViewScrollPosition scrollPosition);
+		void SelectItem (NSIndexPath indexPath, bool animated, PSTCollectionViewScrollPosition scrollPosition);
 
 		[Export ("deselectItemAtIndexPath:animated:")]
-		void DeselectItemAtIndexPath (NSIndexPath indexPath, bool animated);
+		void DeselectItem (NSIndexPath indexPath, bool animated);
 
 		[Export ("reloadData")]
 		void ReloadData ();
@@ -8358,10 +8357,10 @@ namespace PSPDFKit
 		int NumberOfItemsInSection (int section);
 
 		[Export ("layoutAttributesForItemAtIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForItemAtIndexPath (NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes GetLayoutAttributesForItem (NSIndexPath indexPath);
 
 		[Export ("layoutAttributesForSupplementaryElementOfKind:atIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryElementOfKind (string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes GetLayoutAttributesForSupplementaryElement (string elementKind, NSIndexPath indexPath);
 
 		[Export ("indexPathForItemAtPoint:")]
 		NSIndexPath IndexPathForItemAtPoint (PointF point);
@@ -8370,16 +8369,16 @@ namespace PSPDFKit
 		NSIndexPath IndexPathForCell (PSTCollectionViewCell cell);
 
 		[Export ("cellForItemAtIndexPath:")]
-		PSTCollectionViewCell CellForItemAtIndexPath (NSIndexPath indexPath);
+		PSTCollectionViewCell CellForItem (NSIndexPath indexPath);
 
 		[Export ("visibleCells")]
-		NSObject [] VisibleCells ();
+		PSTCollectionViewCell[] VisibleCells { get; }
 
 		[Export ("indexPathsForVisibleItems")]
-		NSIndexPath [] IndexPathsForVisibleItems ();
+		NSIndexPath[] IndexPathsForVisibleItems { get; }
 
 		[Export ("scrollToItemAtIndexPath:atScrollPosition:animated:")]
-		void ScrollToItemAtIndexPath (NSIndexPath indexPath, PSTCollectionViewScrollPosition scrollPosition, bool animated);
+		void ScrollToItem (NSIndexPath indexPath, PSTCollectionViewScrollPosition scrollPosition, bool animated);
 
 		[Export ("insertSections:")]
 		void InsertSections (NSIndexSet sections);
@@ -8394,19 +8393,19 @@ namespace PSPDFKit
 		void MoveSection (int section, int newSection);
 
 		[Export ("insertItemsAtIndexPaths:")]
-		void InsertItemsAtIndexPaths (NSIndexPath [] indexPaths);
+		void InsertItems (NSIndexPath[] indexPaths);
 
 		[Export ("deleteItemsAtIndexPaths:")]
-		void DeleteItemsAtIndexPaths (NSIndexPath [] indexPaths);
+		void DeleteItems (NSIndexPath[] indexPaths);
 
 		[Export ("reloadItemsAtIndexPaths:")]
-		void ReloadItemsAtIndexPaths (NSIndexPath [] indexPaths);
+		void ReloadItems (NSIndexPath[] indexPaths);
 
 		[Export ("moveItemAtIndexPath:toIndexPath:")]
-		void MoveItemAtIndexPath (NSIndexPath indexPath, NSIndexPath newIndexPath);
+		void MoveItem (NSIndexPath indexPath, NSIndexPath newIndexPath);
 
 		[Export ("performBatchUpdates:completion:")]
-		void MoveItemAtIndexPath (NSAction updates, PSTCollectionViewPerformBatchUpdatesCompletionHandler completion);
+		void PerformBatchUpdates (NSAction updates, [NullAllowed] UICompletionHandler completed);
 	}
 
 	[BaseType (typeof (UIView))]
@@ -8422,10 +8421,10 @@ namespace PSPDFKit
 		void ApplyLayoutAttributes (PSTCollectionViewLayoutAttributes layoutAttributes);
 
 		[Export("willTransitionFromLayout:toLayout:")]
-		void WillTransitionFromLayout (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
+		void WillTransition (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
 
 		[Export("didTransitionFromLayout:toLayout:")]
-		void DidTransitionFromLayout (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
+		void DidTransition (PSTCollectionViewLayout oldLayout, PSTCollectionViewLayout newLayout);
 	}
 
 	[BaseType (typeof (PSTCollectionReusableView))]
@@ -8468,25 +8467,25 @@ namespace PSPDFKit
 	interface PSTCollectionViewDelegateFlowLayout : PSTCollectionViewDelegate
 	{
 		[Export ("collectionView:layout:sizeForItemAtIndexPath:")]
-		SizeF SizeForItemAtIndexPath (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, NSIndexPath indexPath);
+		SizeF GetSizeForItem (PSTCollectionView collectionView, PSTCollectionViewLayout layout, NSIndexPath indexPath);
 
 		[Export ("collectionView:layout:insetForSectionAtIndex:")]
-		UIEdgeInsets InsetForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
+		UIEdgeInsets GetInsetForSection (PSTCollectionView collectionView, PSTCollectionViewLayout layout, int section);
 
 		[Export ("collectionView:layout:minimumLineSpacingForSectionAtIndex:")]
-		float MinimumLineSpacingForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
+		float GetMinimumLineSpacingForSection (PSTCollectionView collectionView, PSTCollectionViewLayout layout, int section);
 
 		[Export ("collectionView:layout:minimumInteritemSpacingForSectionAtIndex:")]
-		float MinimumInteritemSpacingForSectionAtIndex (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
+		float GetMinimumInteritemSpacingForSection (PSTCollectionView collectionView, PSTCollectionViewLayout layout, int section);
 
 		[Export ("collectionView:layout:referenceSizeForHeaderInSection:")]
-		SizeF ReferenceSizeForHeaderInSection (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
+		SizeF GetReferenceSizeForHeader (PSTCollectionView collectionView, PSTCollectionViewLayout layout, int section);
 
 		[Export ("collectionView:layout:referenceSizeForFooterInSection:")]
-		SizeF ReferenceSizeForFooterInSection (PSTCollectionView collectionView, PSTCollectionViewLayout collectionViewLayout, int section);
+		SizeF GetReferenceSizeForFooter (PSTCollectionView collectionView, PSTCollectionViewLayout layout, int section);
 
 		[Export ("layoutAttributesForSupplementaryViewOfKind:atIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryViewOfKind (string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes GetLayoutAttributesForSupplementaryViewOfKind (string kind, NSIndexPath indexPath);
 	}
 
 	[BaseType (typeof (PSTCollectionViewLayout))]
@@ -8552,15 +8551,15 @@ namespace PSPDFKit
 
 		[Static]
 		[Export("layoutAttributesForCellWithIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForCellWithIndexPath (NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes CreateForCell (NSIndexPath indexPath);
 
 		[Static]
 		[Export("layoutAttributesForSupplementaryViewOfKind:withIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryViewOfKind (string elementKind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes CreateForSupplementaryView (string kind, NSIndexPath indexPath);
 
 		[Static]
 		[Export("layoutAttributesForDecorationViewOfKind:withIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForDecorationViewOfKind (string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes CreateForDecorationView (string kind, NSIndexPath indexPath);
 	}
 
 	[BaseType (typeof (NSObject))]
@@ -8573,10 +8572,11 @@ namespace PSPDFKit
 		void InvalidateLayout ();
 
 		[Export ("registerClass:forDecorationViewOfKind:")]
-		void RegisterClass (Class viewClass, string kind);
+		//Xamarin.iOS UICollectionViewLayout takes a Type as cellClass (called viewType)
+		void RegisterClassForDecorationView (Class viewClass, string kind);
 
 		[Export ("registerNib:forDecorationViewOfKind:")]
-		void RegisterNib (UINib nib, string kind);
+		void RegisterNibForDecorationView (UINib nib, string kind);
 
 		// PSTCollectionViewLayout (SubclassingHooks) Category
 
@@ -8588,22 +8588,22 @@ namespace PSPDFKit
 		void PrepareLayout ();
 
 		[Export ("layoutAttributesForElementsInRect:")]
-		PSTCollectionViewLayoutAttributes [] LayoutAttributesForElementsInRect (RectangleF rect);
+		PSTCollectionViewLayoutAttributes[] LayoutAttributesForElementsInRect (RectangleF rect);
 
 		[Export ("layoutAttributesForItemAtIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForItemAtIndexPath (NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForItem (NSIndexPath indexPath);
 
 		[Export ("layoutAttributesForSupplementaryViewOfKind:atIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryViewOfKind (string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForSupplementaryView (string kind, NSIndexPath indexPath);
 
 		[Export ("layoutAttributesForDecorationViewOfKind:atIndexPath:")]
-		PSTCollectionViewLayoutAttributes LayoutAttributesForDecorationViewOfKind (string kind, NSIndexPath indexPath);
+		PSTCollectionViewLayoutAttributes LayoutAttributesForDecorationView (string kind, NSIndexPath indexPath);
 
 		[Export ("shouldInvalidateLayoutForBoundsChange:")]
 		bool ShouldInvalidateLayoutForBoundsChange (RectangleF newBounds);
 
 		[Export ("targetContentOffsetForProposedContentOffset:withScrollingVelocity:")]
-		PointF TargetContentOffsetForProposedContentOffset (PointF proposedContentOffset, PointF velocity);
+		PointF TargetContentOffset (PointF proposedContentOffset, PointF scrollingVelocity);
 
 		[Export ("collectionViewContentSize")]
 		SizeF CollectionViewContentSize ();
@@ -8611,20 +8611,22 @@ namespace PSPDFKit
 		// PSTCollectionViewLayout (UpdateSupportHooks) Category
 
 		[Export ("prepareForCollectionViewUpdates:")]
-		void PrepareForCollectionViewUpdates (PSTCollectionViewUpdateItem [] updateItems);
+		void PrepareForCollectionViewUpdates (PSTCollectionViewUpdateItem[] updateItems);
 
 		[Export ("finalizeCollectionViewUpdates")]
 		void FinalizeCollectionViewUpdates ();
 
 		[Export ("initialLayoutAttributesForAppearingItemAtIndexPath:")]
-		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForAppearingItemAtIndexPath (NSIndexPath itemIndexPath);
+		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForAppearingItem (NSIndexPath itemIndexPath);
 
 		[Export ("finalLayoutAttributesForDisappearingItemAtIndexPath:")]
-		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDisappearingItemAtIndexPath (NSIndexPath itemIndexPath);
+		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDisappearingItem (NSIndexPath itemIndexPath);
 
+		//TODO: Find out the origin of this method (not in MonoDoc)
 		[Export ("initialLayoutAttributesForInsertedSupplementaryElementOfKind:atIndexPath:")]
 		PSTCollectionViewLayoutAttributes InitialLayoutAttributesForInsertedSupplementaryElementOfKind (string elementKind, NSIndexPath elementIndexPath);
 
+		//TODO: Find out the origin of this method (not in MonoDoc)
 		[Export ("finalLayoutAttributesForDeletedSupplementaryElementOfKind:atIndexPath:")]
 		PSTCollectionViewLayoutAttributes FinalLayoutAttributesForDeletedSupplementaryElementOfKind (string elementKind, NSIndexPath elementIndexPath);
 	}
@@ -8666,17 +8668,17 @@ namespace PSPDFKit
 	{
 		[Abstract]
 		[Export ("collectionView:numberOfItemsInSection:")]
-		int DidSelectPage (PSTCollectionView collectionView, int section);
+		int GetItemsCount (PSTCollectionView collectionView, int section);
 
 		[Abstract]
 		[Export ("collectionView:cellForItemAtIndexPath:")]
-		PSTCollectionViewCell CellForItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		PSTCollectionViewCell GetCell (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("numberOfSectionsInCollectionView:")]
-		int NumberOfSectionsInCollectionView (PSTCollectionView collectionView);
+		int NumberOfSections (PSTCollectionView collectionView);
 
 		[Export ("collectionView:viewForSupplementaryElementOfKind:atIndexPath")]
-		PSTCollectionReusableView ViewForSupplementaryElementOfKind (PSTCollectionView collectionView, string kind, NSIndexPath indexPath);
+		PSTCollectionReusableView GetViewForSupplementaryElement (PSTCollectionView collectionView, string elementKind, NSIndexPath indexPath);
 	}
 
 	interface IPSTCollectionViewDelegate { }
@@ -8687,34 +8689,34 @@ namespace PSPDFKit
 	interface PSTCollectionViewDelegate : IUIScrollViewDelegate
 	{
 		[Export ("collectionView:shouldHighlightItemAtIndexPath:")]
-		bool ShouldHighlightItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldHighlightItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:didHighlightItemAtIndexPath:")]
-		void DidHighlightItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		void ItemHighlighted (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:didUnhighlightItemAtIndexPath:")]
-		void DidUnhighlightItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		void ItemUnhighlighted (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:shouldSelectItemAtIndexPath:")]
-		bool ShouldSelectItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldSelectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:shouldDeselectItemAtIndexPath:")]
-		bool ShouldDeselectItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldDeselectItem (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:didSelectItemAtIndexPath:")]
-		void DidSelectItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		void ItemSelected (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:didDeselectItemAtIndexPath:")]
-		void DidDeselectItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		void ItemDeselected (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:didEndDisplayingCell:forItemAtIndexPath:")]
-		void DidEndDisplayingCell (PSTCollectionView collectionView, PSTCollectionViewCell cell, NSIndexPath indexPath);
+		void CellDisplayingEnded (PSTCollectionView collectionView, PSTCollectionViewCell cell, NSIndexPath indexPath);
 
 		[Export ("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:")]
-		void DidEndDisplayingSupplementaryView (PSTCollectionView collectionView, PSTCollectionReusableView view, string elementKind, NSIndexPath indexPath);
+		void SupplementaryViewDisplayingEnded (PSTCollectionView collectionView, PSTCollectionReusableView view, string elementKind, NSIndexPath indexPath);
 
 		[Export ("collectionView:shouldShowMenuForItemAtIndexPath:")]
-		bool ShouldShowMenuForItemAtIndexPath (PSTCollectionView collectionView, NSIndexPath indexPath);
+		bool ShouldShowMenu (PSTCollectionView collectionView, NSIndexPath indexPath);
 
 		[Export ("collectionView:canPerformAction:forItemAtIndexPath:withSender:")]
 		bool CanPerformAction (PSTCollectionView collectionView, Selector action, NSIndexPath indexPath, NSObject sender);
