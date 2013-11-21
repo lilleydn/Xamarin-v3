@@ -50,8 +50,6 @@ namespace PSPDFKit
 	delegate void UpdateSettingsForRotationHandler (PSPDFViewController pdfController, UIInterfaceOrientation toInterfaceOrientation);
 
 	[BaseType (typeof (PSPDFBaseViewController),
-	Delegates = new string [] {"WeakDelegate", "WeakFormSubmissionDelegate"},
-	Events = new Type [] { typeof (PSPDFViewControllerDelegate), typeof (PSPDFFormSubmissionDelegate) })]
 	interface PSPDFViewController
 	{
 		[Export ("initWithDocument:")]
@@ -317,6 +315,11 @@ namespace PSPDFKit
 
 		[Export ("visiblePageNumbers")]
 		NSOrderedSet VisiblePageNumbers { get; }
+		[Export ("visiblePageNumbers")]
+		NSNumber[] VisiblePageNumbers
+		{
+			get;
+		}
 
 		[Export ("visiblePageViews")]
 		PSPDFPageView [] VisiblePageViews { get; }
@@ -654,8 +657,6 @@ namespace PSPDFKit
 	delegate void DetectingLinkTypesProgressHandler (PSPDFAnnotation [] annotations, uint page, bool stop, NSError error);
 
 	[BaseType (typeof (NSObject),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFDocumentDelegate) })]
 	interface PSPDFDocument
 	{
 		[Static]
@@ -676,7 +677,6 @@ namespace PSPDFKit
 
 		[Static]
 		[Export ("documentWithDataProvider:")] [Internal]
-		PSPDFDocument FromDataProvider_ (IntPtr /* CGDataProvider */ dataProvider);
 
 		[Static]
 		[Export ("documentWithDataProviderArray:")]
@@ -909,6 +909,18 @@ namespace PSPDFKit
 
 		[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)][NullAllowed]
 		NSObject /* HACK: NSOrderedSet */ EditableAnnotationTypes { get; set; }
+		[//Export ("editableAnnotationTypes", ArgumentSemantic.Copy)][NullAllowed]
+		//NSObject /*		 HACK: NSOrderedSet */ EditableAnnotationTypes { get; set; }
+		
+		// NSOrderedSet is unbound. Use IntPtr for now.
+		[Export( "editableAnnotationTypes", ArgumentSemantic.Copy )]
+		IntPtr EditableAnnotationTypes
+		{
+			[NullAllowed]
+			get;
+			[NullAllowed]
+			set;
+		}
 
 		[Export ("canEmbedAnnotations", ArgumentSemantic.Assign)]
 		bool CanEmbedAnnotations { get; }
@@ -1091,7 +1103,6 @@ namespace PSPDFKit
 		UIColor BackgroundColor { get; set; }
 
 		[Export ("pageInfoForPage:pageRef:")] [Internal]
-		PSPDFPageInfo PageInfoForPage_ (uint page, IntPtr /* CGPDFPage */ pageRef);
 
 		[Export ("fileNameForIndex:")]
 		string FileNameForIndex (uint fileIndex);
@@ -1636,8 +1647,6 @@ namespace PSPDFKit
 	delegate void PSPDFDocumentProviderIterateOverPageRef (PSPDFDocumentProvider provider, IntPtr documentRef, IntPtr pageRef, uint page);
 
 	[BaseType (typeof (NSObject),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFDocumentProviderDelegate) })]
 	interface PSPDFDocumentProvider
 	{
 		[Export ("initWithFileURL:document:")]
@@ -1647,7 +1656,6 @@ namespace PSPDFKit
 		IntPtr Constructor (NSData data, PSPDFDocument document);
 
 		[Export ("initWithDataProvider:document:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGDataProvider */ dataProvider, PSPDFDocument document);
 
 		[Export ("fileURL")]
 		NSUrl FileURL { get; }
@@ -1656,7 +1664,6 @@ namespace PSPDFKit
 		NSData Data { get; }
 
 		[Export ("dataProvider")] [Internal]
-		IntPtr /* CGDataProvider */ DataProvider_ { get; }
 
 		[Export ("dataRepresentationWithError:")] [Internal]
 		NSData _DataRepresentationWithError (IntPtr error);
@@ -1749,7 +1756,6 @@ namespace PSPDFKit
 		// PSPDFDocumentProvider (SubclassingHooks) Category
 
 		[Export ("pageInfoForPage:pageRef:")] [Internal]
-		PSPDFPageInfo PageInfoForPage_ (uint page, IntPtr /* CGPDFPage */ pageRef);
 
 		[Export ("setPageInfo:forPage:")]
 		void SetPageInfo (PSPDFPageInfo pageInfo, uint page);
@@ -1888,10 +1894,8 @@ namespace PSPDFKit
 		void SetupGraphicsContext (CGContext context, RectangleF displayRectangle, PSPDFPageInfo pageInfo);
 
 		[Export ("renderPageRef:inContext:inRectangle:pageInfo:withAnnotations:options:")] [Internal]
-		RectangleF RenderPageRef_ (IntPtr /* CGPDFPage */ page, CGContext context, RectangleF rectangle, PSPDFPageInfo pageInfo, PSPDFAnnotation [] annotations, NSDictionary options);
 
 		[Export ("renderPage:inContext:atPoint:withZoom:pageInfo:withAnnotations:options:")] [Internal]
-		SizeF SetupGraphicsContext_ (IntPtr /* CGPDFPage */ page, IntPtr /* CGContext */ context, PointF point, double zoom, PSPDFPageInfo pageInfo, PSPDFAnnotation [] annotations, NSDictionary options);
 
 		[Export ("renderAppearanceStream:inContext:error:")]
 		bool RenderAppearanceStream (PSPDFAnnotation annotation, CGContext context, out NSError error);
@@ -2121,8 +2125,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFMultiDocumentViewControllerDelegate) })]
 	interface PSPDFMultiDocumentViewController
 	{
 		[Export ("initWithPDFViewController:")]
@@ -2571,7 +2573,6 @@ namespace PSPDFKit
 		IntPtr Constructor (string namedDestination);
 
 		[Export ("initWithPDFDictionary:documentRef:pageCache:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef, NSMutableDictionary /* CFMutableDictionary */ pageCache);
 
 		[Export ("pageIndex", ArgumentSemantic.Assign)]
 		uint PageIndex { get; set; }
@@ -2584,7 +2585,6 @@ namespace PSPDFKit
 
 		[Static]
 		[Export ("resolveActionsWithNamedDestinations:documentRef:")] [Internal]
-		uint ResolveActionsWithNamedDestinations_ (PSPDFGoToAction [] actions, IntPtr /* CGPDFDocument */ documentRef);
 	}
 
 	[BaseType (typeof (PSPDFAction))]
@@ -2594,7 +2594,6 @@ namespace PSPDFKit
 		IntPtr Constructor (string remotePath, uint pageIndex);
 
 		[Export ("initWithPDFDictionary:documentRef:isLaunch:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef, bool launch);
 
 		[Export ("relativePath", ArgumentSemantic.Copy)]
 		string RelativePath { get; set; }
@@ -2613,7 +2612,6 @@ namespace PSPDFKit
 		IntPtr Constructor (NSUrl url);
 
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("URL", ArgumentSemantic.Retain)] [NullAllowed]
 		NSUrl Url { get; set; }
@@ -2650,7 +2648,6 @@ namespace PSPDFKit
 		IntPtr Constructor (string actionNameString);
 
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("namedActionType", ArgumentSemantic.Assign)]
 		PSPDFNamedActionType NamedActionType { get; set; }
@@ -2669,7 +2666,6 @@ namespace PSPDFKit
 		IntPtr Constructor (string script);
 
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("script", ArgumentSemantic.Copy)]
 		string Script { get; set; }
@@ -2685,7 +2681,6 @@ namespace PSPDFKit
 	interface PSPDFRenditionAction
 	{
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("operation", ArgumentSemantic.Assign)]
 		PSPDFRenditionActionType Operation { get; set; }
@@ -2698,7 +2693,6 @@ namespace PSPDFKit
 	interface PSPDFRichMediaExecuteAction
 	{
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("command", ArgumentSemantic.Copy)]
 		string Command { get; set; }
@@ -2721,7 +2715,6 @@ namespace PSPDFKit
 	interface PSPDFSubmitFormAction
 	{
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("URL", ArgumentSemantic.Retain)] [NullAllowed]
 		NSUrl Url { get; set; }
@@ -2734,7 +2727,6 @@ namespace PSPDFKit
 	interface PSPDFResetFormAction
 	{
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("flags", ArgumentSemantic.Assign)]
 		PSPDFResetFormActionFlag Flags { get; set; }
@@ -2744,7 +2736,6 @@ namespace PSPDFKit
 	interface PSPDFHideAction
 	{
 		[Export ("initWithPDFDictionary:documentRef:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ actionDictionary, IntPtr /* CGPDFDocument */ documentRef);
 
 		[Export ("shouldHide", ArgumentSemantic.Assign)]
 		bool ShouldHide { get; set; }
@@ -2833,8 +2824,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UIView),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFPasswordViewDelegate) })]
 	interface PSPDFPasswordView
 	{
 		[Export ("initWithFrame:")]
@@ -2888,8 +2877,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSOperation),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFSearchOperationDelegate) })]
 	interface PSPDFSearchOperation
 	{
 		[Export ("initWithDocument:searchTerm:")]
@@ -2947,8 +2934,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFTextSearchDelegate) })]
 	interface PSPDFTextSearch : IPSPDFSearchOperationDelegate
 	{
 		[Export ("initWithDocument:")]
@@ -2991,11 +2976,9 @@ namespace PSPDFKit
 	interface PSPDFTextParser
 	{
 		[Export ("initWithPDFPage:page:document:fontCache:hideGlyphsOutsidePageRect:PDFBox:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFPage */ pageRef, uint page, PSPDFDocument document, NSMutableDictionary fontCache, bool hideGlyphsOutsidePageRect, CGPDFBox pdfBox);
 
 		[Static]
 		[Export ("initWithStream:")] [Internal]
-		PSPDFTextParser FromStream_ (IntPtr /* CGPDFStream */ stream);
 
 		[Export ("text", ArgumentSemantic.Retain)] [NullAllowed]
 		string Text { get; set; }
@@ -3206,8 +3189,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (NSObject),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFSearchViewControllerDelegate) })]
 	interface PSPDFSearchViewController
 	{
 		[Export("initWithDocument:delegate:")]
@@ -3293,7 +3274,6 @@ namespace PSPDFKit
 	interface PSPDFSearchResultCell
 	{
 		[Export ("searchPreviewLabel", ArgumentSemantic.Retain)] [NullAllowed]
-		NSObject /* PSPDFAttributedLabel */ SearchPreviewLabel { get; set; }
 
 		[Export ("rotatedPageRect", ArgumentSemantic.Assign)]
 		RectangleF RotatedPageRect { get; set; }
@@ -3341,8 +3321,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSTCollectionViewController),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFThumbnailViewControllerDelegate) })]
 	interface PSPDFThumbnailViewController
 	{
 		[Export("initWithDocument:")]
@@ -3379,7 +3357,6 @@ namespace PSPDFKit
 		bool StickyHeaderEnabled { get; set; }
 
 		[Export ("filterOptions", ArgumentSemantic.Copy)] [NullAllowed]
-		NSObject /* HACK: NSOrderedSet */  FilterOptions { get; set; }
 
 		[Export ("activeFilter", ArgumentSemantic.Assign)]
 		PSPDFThumbnailViewFilter ActiveFilter { get; }
@@ -3553,8 +3530,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSTCollectionViewController),
-	Delegates=new string [] {"WeakThumbnailBarDelegate"},
-	Events=new Type [] { typeof (PSPDFThumbnailBarDelegate) })]
 	interface PSPDFThumbnailBar
 	{
 		[Export("initWithDocuments:")]
@@ -3688,8 +3663,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFStatefulTableViewController),
-	Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFOutlineViewControllerDelegate) })]
 	interface PSPDFOutlineViewController : IUISearchDisplayDelegate, IPSPDFStyleable
 	{
 		[Export("initWithDocument:delegate:")]
@@ -3744,8 +3717,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (UITableViewCell),
-	 Delegates=new string [] {"WeakDelegate"},
-	Events=new Type [] { typeof (PSPDFOutlineCellDelegate) })]
 	interface PSPDFOutlineCell
 	{
 		[Static]
@@ -3876,7 +3847,6 @@ namespace PSPDFKit
 		// PSPDFAnnotationManager (SubclassingHooks) Category
 
 		[Export("annotationsForPage:type:pageRef:")] [Internal]
-		PSPDFAnnotation [] AnnotationsForPage_ (uint page, PSPDFAnnotationType type, IntPtr /* CGPDFPage */ pageRef);
 
 		[Export("dirtyAnnotations")]
 		NSDictionary DirtyAnnotations { get; }
@@ -4235,7 +4205,6 @@ namespace PSPDFKit
 		PSPDFTextCheckingType AutodetectTextLinkTypes { get; set; }
 
 		[Export ("annotationsForPage:pageRef:")] [Internal]
-		PSPDFAnnotation [] AnnotationsForPage_ (uint page, IntPtr /* CGPDFPage */ pageRef);
 
 		[Export ("setAnnotations:forPage:")]
 		void SetAnnotations (PSPDFAnnotation [] annotations, uint page);
@@ -4263,7 +4232,6 @@ namespace PSPDFKit
 		// PSPDFFileAnnotationProvider (SubclassingHooks) Category
 
 		[Export("parseAnnotationsForPage:pageRef:")] [Internal]
-		PSPDFAnnotation [] ParseAnnotationsForPage_ (uint page, IntPtr /* CGPDFPage */ pageRef);
 
 		[Export("saveAnnotationsWithOptions:error:")] [Internal]
 		bool _SaveAnnotationsWithOptions (NSDictionary options, IntPtr error);
@@ -4376,6 +4344,13 @@ namespace PSPDFKit
 		[Export ("lines", ArgumentSemantic.Copy)]
 		NSValue [] Lines { get; [NullAllowed] set; }
 
+		[Export ("lines", ArgumentSemantic.Copy)]
+		NSArray Lines
+		{
+			get;
+			[NullAllowed]
+			set;
+		}
 		[Export ("bezierPath", ArgumentSemantic.Copy)]
 		UIBezierPath BezierPath { get; }
 
@@ -4506,7 +4481,6 @@ namespace PSPDFKit
 	{
 
 	}
-	
 	[BaseType (typeof (PSPDFAnnotation))]
 	interface PSPDFPopupAnnotation
 	{
@@ -5263,7 +5237,6 @@ namespace PSPDFKit
 		UIBarPosition BarPosition { get; set; }
 
 		[Export ("editableAnnotationTypes", ArgumentSemantic.Copy)] [NullAllowed]
-		NSObject /* HACK: NSOrderedSet */ EditableAnnotationTypes { get; set; }
 
 		[Export ("undoButtonItem", ArgumentSemantic.Retain)]
 		UIBarButtonItem UndoButtonItem { get; }
@@ -5287,8 +5260,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseViewController),
-	Delegates = new string [] {"WeakDelegate"},
-	Events = new Type [] { typeof (PSPDFSignatureViewControllerDelegate) })]
 	interface PSPDFSignatureViewController : IPSPDFStyleable
 	{
 		[Export ("lines", ArgumentSemantic.Retain)]
@@ -5345,8 +5316,6 @@ namespace PSPDFKit
 	}
 
 	[BaseType (typeof (PSPDFBaseTableViewController),
-	Delegates = new string [] {"WeakDelegate"},
-	Events = new Type [] { typeof (PSPDFFontSelectorViewControllerDelegate) })]
 	interface PSPDFFontSelectorViewController
 	{
 		[Static]
@@ -5945,7 +5914,6 @@ namespace PSPDFKit
 	}
 
 	delegate void PSPDFEmailBarButtonItemMailComposeViewControllerCustomizationHandler (MFMailComposeViewController controller);
-	
 	[BaseType (typeof (PSPDFBarButtonItem))]
 	interface PSPDFEmailBarButtonItem : IPSPDFDocumentSharingViewControllerDelegate, IMFMailComposeViewControllerDelegate
 	{
@@ -6069,7 +6037,6 @@ namespace PSPDFKit
 		bool IsAvailableBlocking ();
 
 		[Export ("availableControllerOptions", ArgumentSemantic.Copy)]
-		NSObject /* HACK: NSOrderedSet */ AvailableControllerOptions { get; set; }
 
 		[Export ("setDidCreateControllerBlock:")]
 		void SetDidCreateControllerHandler (PSPDFOutlineBarButtonItemDidCreateControllerHandler handler);
@@ -6671,11 +6638,9 @@ namespace PSPDFKit
 		IntPtr Constructor (NSUrl url, NSData key);
 
 		[Export ("dataProvider")] [Internal]
-		IntPtr /* CGDataProvider */ DataProvider_ { get; }
 
 		[Static]
 		[Export ("isAESCryptoDataProvider:")] [Internal]
-		bool IsAESCryptoDataProvider_ (IntPtr /* CGDataProvider */ dataProviderRef);
 
 		[Static]
 		[Export ("isAESCryptoFeatureAvailable")]
@@ -6718,14 +6683,11 @@ namespace PSPDFKit
 	interface PSPDFFormElement
 	{
 		[Export ("initWithAnnotationDictionary:documentRef:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, NSMutableDictionary fieldsAddressMap);
 
 		[Export ("initWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 
 		[Static]
 		[Export ("formElementWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		PSPDFFormElement FormElementWithAnnotationDictionary_ (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 
 		[Export ("parent", ArgumentSemantic.Assign)]
 		PSPDFFormElement Parent { get; set; }
@@ -6807,7 +6769,6 @@ namespace PSPDFKit
 	interface PSPDFButtonFormElement
 	{
 		[Export ("initWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 
 		[Export ("isPushButton")]
 		bool IsPushButton { get; }
@@ -6838,7 +6799,6 @@ namespace PSPDFKit
 	interface PSPDFChoiceFormElement
 	{
 		[Export ("initWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 
 		[Export ("isCombo")]
 		bool IsCombo { get; }
@@ -6875,14 +6835,12 @@ namespace PSPDFKit
 	interface PSPDFSignatureFormElement
 	{
 		[Export ("initWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 	}
 
 	[BaseType (typeof (PSPDFAbstractTextRenderingFormElement))]
 	interface PSPDFTextFieldFormElement
 	{
 		[Export ("initWithAnnotationDictionary:documentRef:parent:fieldsAddressMap:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ annotDict, IntPtr /* CGPDFDocument */ documentRef, PSPDFFormElement parentFormElement, NSMutableDictionary fieldsAddressMap);
 
 		[Export ("isMultiline")] [New]
 		bool IsMultiline { get; }
@@ -7510,7 +7468,6 @@ namespace PSPDFKit
 
 		[Abstract]
 		[Export ("createFontRef")]
-		IntPtr /* CTFont */ CreateFontRef ();
 
 		[Abstract]
 		[Export ("edgeInsets")]
@@ -7553,7 +7510,6 @@ namespace PSPDFKit
 		uint PageRotation { get; set; } 
 
 		[Export ("fontRef", ArgumentSemantic.Assign)]
-		IntPtr /* CTFont */ FontRef { get; set; } 
 
 		[Export ("edgeInsets", ArgumentSemantic.Assign)]
 		UIEdgeInsets EdgeInsets { get; set; } 
@@ -7596,7 +7552,6 @@ namespace PSPDFKit
 		UIFont DefaultFont ();
 
 		[Export ("createFontRef")]
-		IntPtr /* CTFont */ CreateFontRef ();
 
 		[Export ("autoFontSizingFudgeFactor")]
 		float AutoFontSizingFudgeFactor ();
@@ -7623,7 +7578,6 @@ namespace PSPDFKit
 		uint PageRotation { get; set; } 
 
 		[Export ("fontRef", ArgumentSemantic.Assign)]
-		IntPtr /* CTFont */ FontRef { get; set; } 
 
 		[Export ("edgeInsets", ArgumentSemantic.Assign)]
 		UIEdgeInsets EdgeInsets { get; set; } 
@@ -8038,7 +7992,6 @@ namespace PSPDFKit
 		NSObject UcsCMap { get; }
 
 		[Export ("initWithFontDictionary:fontKey:")] [Internal]
-		IntPtr Constructor (IntPtr /* CGPDFDictionary */ font, string fontKey);
 
 		[Export ("widthForCharacter:")]
 		float WidthForCharacter (ushort character);
